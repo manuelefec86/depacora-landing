@@ -27,97 +27,31 @@ const FALLBACK_IMG =
 // ==== Datos de productos (usa rutas de /public/assets) ====
 const productosData = [
   {
-    name: "Gato/Perro en porcelana con flores preservadas",
-    price: 85000,
-    oldPrice: 95000,
-    desc:
-      "Base en porcelana en forma de gato o perro con flores preservadas que duran años. No necesitan agua ni sol. Disponible en 12 colores.",
-    imgs: [
-      ASSET("Screenshot_2025-09-19_at_4.25.21_PM.png"),
-      ASSET("Screenshot_2025-09-19_at_4.25.54_PM.png"),
-      ASSET("Screenshot_2025-09-19_at_4.25.28_PM.png"),
-      ASSET("Screenshot_2025-09-19_at_4.25.12_PM.png"),
-    ],
+    $1[ASSET("Screenshot_2025-09-19_at_4.25.21_PM.png"), ASSET("Screenshot_2025-09-19_at_4.25.28_PM.png"), ASSET("Screenshot_2025-09-19_at_4.25.12_PM.png")],
     tag: "Oferta",
   },
   {
-    name: "Florero 'Venus' con flores preservadas",
-    price: 109000,
-    oldPrice: 115000,
-    desc:
-      "Florero en cerámica 'Venus' con flores preservadas. Disponible en 12 colores. Altura del florero 13 cm.",
-    imgs: [
-      ASSET("Screenshot_2025-09-19_at_4.30.17_PM.png"),
-      ASSET("Screenshot_2025-09-19_at_4.30.10_PM.png"),
-      ASSET("Screenshot_2025-09-19_at_4.30.31_PM.png"),
-      ASSET("Screenshot_2025-09-19_at_4.30.41_PM.png"),
-    ],
+    $1[ASSET("Screenshot_2025-09-19_at_4.30.17_PM.png"), ASSET("Screenshot_2025-09-19_at_4.30.10_PM.png"), ASSET("Screenshot_2025-09-19_at_4.30.31_PM.png")],
     tag: "Nuevo",
   },
   {
-    name: "Florero 'Artemisa' con flores preservadas",
-    price: 119000,
-    oldPrice: 125000,
-    desc:
-      "Florero en cerámica (Sentidos) con flores preservadas que duran años y no necesitan agua. 12 colores disponibles. Altura del florero 16 cm.",
-    imgs: [
-      ASSET("Screenshot_2025-09-19_at_4.32.50_PM.png"),
-      ASSET("Screenshot_2025-09-19_at_4.32.56_PM.png"),
-      ASSET("Screenshot_2025-09-19_at_4.33.12_PM.png"),
-      ASSET("Screenshot_2025-09-19_at_4.33.02_PM.png"),
-      ASSET("Screenshot_2025-09-19_at_4.32.42_PM.png"),
-    ],
+    $1[ASSET("Screenshot_2025-09-19_at_4.32.50_PM.png"), ASSET("Screenshot_2025-09-19_at_4.32.56_PM.png"), ASSET("Screenshot_2025-09-19_at_4.33.02_PM.png"), ASSET("Screenshot_2025-09-19_at_4.32.42_PM.png")],
     tag: "Exclusivo",
   },
   {
-    name: "Centro de mesa 'Angelita'",
-    price: 98000,
-    oldPrice: null,
-    desc:
-      "Hortensia preservada (20 cm diámetro aprox.) en canasto artesanal con follaje. Colores a elección según disponibilidad.",
-    imgs: [
-      ASSET("Screenshot_2025-09-19_at_4.35.22_PM.png"),
-      ASSET("Screenshot_2025-09-19_at_4.35.31_PM.png"),
-      ASSET("Screenshot_2025-09-19_at_4.35.15_PM.png"),
-      ASSET("Screenshot_2025-09-19_at_4.35.10_PM.png"),
-    ],
+    $1[ASSET("Screenshot_2025-09-19_at_4.35.22_PM.png"), ASSET("Screenshot_2025-09-19_at_4.35.15_PM.png"), ASSET("Screenshot_2025-09-19_at_4.35.10_PM.png")],
     tag: "Clásico",
   },
   {
-    name: "Diseño floral redondo 'Maga'",
-    price: 215000,
-    oldPrice: null,
-    desc:
-      "Diseño floral redondo preservado con hortensia y follaje. Colores personalizables según disponibilidad. No incluye florero.",
-    imgs: [ASSET("Screenshot_2025-09-19_at_4.36.54_PM.png"), ASSET("Screenshot_2025-09-19_at_4.36.45_PM.png")],
+    $1[ASSET("Screenshot_2025-09-19_at_4.36.45_PM.png")],
     tag: "Premium",
   },
   {
-    name: "Diseño floral 'Paz' mesa de recibidor",
-    price: 276000,
-    oldPrice: null,
-    desc:
-      "Diseño floral con flores preservadas (hortensias y rosas) y follaje. Incluye florero en cerámica blanco.",
-    imgs: [
-      ASSET("Screenshot_2025-09-19_at_4.37.53_PM.png"),
-      ASSET("Screenshot_2025-09-19_at_4.38.01_PM.png"),
-      ASSET("Screenshot_2025-09-19_at_4.38.07_PM.png"),
-      ASSET("Screenshot_2025-09-19_at_4.38.16_PM.png"),
-    ],
+    $1[ASSET("Screenshot_2025-09-19_at_4.37.53_PM.png"), ASSET("Screenshot_2025-09-19_at_4.38.01_PM.png"), ASSET("Screenshot_2025-09-19_at_4.38.07_PM.png")],
     tag: "Elegancia",
   },
   {
-    name: "Base porcelana 'Slim' con flores preservadas",
-    price: 75000,
-    oldPrice: 85000,
-    desc:
-      "Base en porcelana con flores preservadas que duran años y no necesitan agua. 12 colores disponibles. Siguiendo las recomendaciones duran más de 2 años.",
-    imgs: [
-      ASSET("Screenshot_2025-09-19_at_4.39.32_PM.png"),
-      ASSET("Screenshot_2025-09-19_at_4.39.37_PM.png"),
-      ASSET("Screenshot_2025-09-19_at_4.39.42_PM.png"),
-      ASSET("Screenshot_2025-09-19_at_4.39.49_PM.png"),
-    ],
+    $1[ASSET("Screenshot_2025-09-19_at_4.39.32_PM.png"), ASSET("Screenshot_2025-09-19_at_4.39.37_PM.png"), ASSET("Screenshot_2025-09-19_at_4.39.42_PM.png")],
     tag: "Económico",
   },
 ];
@@ -193,10 +127,7 @@ export default function DepacoraLanding() {
               <div>🛡️ Garantía 12 meses</div>
             </div>
           </div>
-          <div className="relative aspect-[4/3] rounded-3xl bg-pink-50 shadow-inner">
-            <div className="absolute inset-0 grid place-items-center text-neutral-400">
-              <div className="text-center">
-                <div className="text-7xl">🌸</div>
+          <div className="relative aspect-[4/3] rounded-3xl bg-pink-50 shadow-inner flex items-center justify-center"><img src={LOGO} onError={(e)=>{e.currentTarget.src=FALLBACK_IMG}} alt="DEPACORA logo" className="max-h-60 w-auto object-contain" /></div>
                 <div className="mt-2">Fotografía principal del producto</div>
                 <div className="text-xs">(reemplazar por imagen real)</div>
               </div>
