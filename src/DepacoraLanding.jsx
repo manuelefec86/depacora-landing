@@ -1,96 +1,134 @@
-
 import React, { useState, useEffect } from "react";
-import logo from "./assets/IMG_6701.jpeg";
-import dog1 from "./assets/Screenshot_2025-09-19_at_4.25.21_PM.png";
-import cat1 from "./assets/Screenshot_2025-09-19_at_4.25.54_PM.png";
-import cat2 from "./assets/Screenshot_2025-09-19_at_4.25.28_PM.png";
-import cat3 from "./assets/Screenshot_2025-09-19_at_4.25.12_PM.png";
-import venus1 from "./assets/Screenshot_2025-09-19_at_4.30.17_PM.png";
-import venus2 from "./assets/Screenshot_2025-09-19_at_4.30.10_PM.png";
-import venus3 from "./assets/Screenshot_2025-09-19_at_4.30.31_PM.png";
-import venus4 from "./assets/Screenshot_2025-09-19_at_4.30.41_PM.png";
-import artemisa1 from "./assets/Screenshot_2025-09-19_at_4.32.50_PM.png";
-import artemisa2 from "./assets/Screenshot_2025-09-19_at_4.32.56_PM.png";
-import artemisa3 from "./assets/Screenshot_2025-09-19_at_4.33.12_PM.png";
-import artemisa4 from "./assets/Screenshot_2025-09-19_at_4.33.02_PM.png";
-import artemisa5 from "./assets/Screenshot_2025-09-19_at_4.32.42_PM.png";
-import angelita1 from "./assets/Screenshot_2025-09-19_at_4.35.22_PM.png";
-import angelita2 from "./assets/Screenshot_2025-09-19_at_4.35.31_PM.png";
-import angelita3 from "./assets/Screenshot_2025-09-19_at_4.35.15_PM.png";
-import angelita4 from "./assets/Screenshot_2025-09-19_at_4.35.10_PM.png";
-import maga1 from "./assets/Screenshot_2025-09-19_at_4.36.54_PM.png";
-import maga2 from "./assets/Screenshot_2025-09-19_at_4.36.45_PM.png";
-import paz1 from "./assets/Screenshot_2025-09-19_at_4.37.53_PM.png";
-import paz2 from "./assets/Screenshot_2025-09-19_at_4.38.01_PM.png";
-import paz3 from "./assets/Screenshot_2025-09-19_at_4.38.07_PM.png";
-import paz4 from "./assets/Screenshot_2025-09-19_at_4.38.16_PM.png";
-import slim1 from "./assets/Screenshot_2025-09-19_at_4.39.32_PM.png";
-import slim2 from "./assets/Screenshot_2025-09-19_at_4.39.37_PM.png";
-import slim3 from "./assets/Screenshot_2025-09-19_at_4.39.42_PM.png";
-import slim4 from "./assets/Screenshot_2025-09-19_at_4.39.49_PM.png";
+
+/**
+ * 🔧 Build error fix: remove static image imports that were failing the build.
+ * We now reference image paths as strings from /public/assets to avoid compile errors
+ * if files are missing. Make sure your images are placed in: public/assets/
+ *   - IMG_6701.jpeg
+ *   - Screenshot_2025-09-19_at_4.25.21_PM.png
+ *   - ... (todas las que ya subiste)
+ *
+ * Tip: en Vercel/Netlify, coloca la carpeta `assets` dentro de `public/`.
+ */
+
+const ASSET = (name) => `/assets/${name}`; // runtime path (no import)
+const LOGO = ASSET("IMG_6701.jpeg");
+
+// Fallback inline SVG (no red externa) por si alguna imagen no existe
+const FALLBACK_IMG =
+  "data:image/svg+xml;utf8," +
+  encodeURIComponent(`\
+    <svg xmlns='http://www.w3.org/2000/svg' width='800' height='800'>\
+      <rect width='100%' height='100%' fill='#f3f4f6'/>\
+      <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle'\
+            font-size='24' fill='#9ca3af'>Imagen no encontrada</text>\
+    </svg>`);
+
+// ==== Datos de productos (usa rutas de /public/assets) ====
+const productosData = [
+  {
+    name: "Gato/Perro en porcelana con flores preservadas",
+    price: 85000,
+    oldPrice: 95000,
+    desc:
+      "Base en porcelana en forma de gato o perro con flores preservadas que duran años. No necesitan agua ni sol. Disponible en 12 colores.",
+    imgs: [
+      ASSET("Screenshot_2025-09-19_at_4.25.21_PM.png"),
+      ASSET("Screenshot_2025-09-19_at_4.25.54_PM.png"),
+      ASSET("Screenshot_2025-09-19_at_4.25.28_PM.png"),
+      ASSET("Screenshot_2025-09-19_at_4.25.12_PM.png"),
+    ],
+    tag: "Oferta",
+  },
+  {
+    name: "Florero 'Venus' con flores preservadas",
+    price: 109000,
+    oldPrice: 115000,
+    desc:
+      "Florero en cerámica 'Venus' con flores preservadas. Disponible en 12 colores. Altura del florero 13 cm.",
+    imgs: [
+      ASSET("Screenshot_2025-09-19_at_4.30.17_PM.png"),
+      ASSET("Screenshot_2025-09-19_at_4.30.10_PM.png"),
+      ASSET("Screenshot_2025-09-19_at_4.30.31_PM.png"),
+      ASSET("Screenshot_2025-09-19_at_4.30.41_PM.png"),
+    ],
+    tag: "Nuevo",
+  },
+  {
+    name: "Florero 'Artemisa' con flores preservadas",
+    price: 119000,
+    oldPrice: 125000,
+    desc:
+      "Florero en cerámica (Sentidos) con flores preservadas que duran años y no necesitan agua. 12 colores disponibles. Altura del florero 16 cm.",
+    imgs: [
+      ASSET("Screenshot_2025-09-19_at_4.32.50_PM.png"),
+      ASSET("Screenshot_2025-09-19_at_4.32.56_PM.png"),
+      ASSET("Screenshot_2025-09-19_at_4.33.12_PM.png"),
+      ASSET("Screenshot_2025-09-19_at_4.33.02_PM.png"),
+      ASSET("Screenshot_2025-09-19_at_4.32.42_PM.png"),
+    ],
+    tag: "Exclusivo",
+  },
+  {
+    name: "Centro de mesa 'Angelita'",
+    price: 98000,
+    oldPrice: null,
+    desc:
+      "Hortensia preservada (20 cm diámetro aprox.) en canasto artesanal con follaje. Colores a elección según disponibilidad.",
+    imgs: [
+      ASSET("Screenshot_2025-09-19_at_4.35.22_PM.png"),
+      ASSET("Screenshot_2025-09-19_at_4.35.31_PM.png"),
+      ASSET("Screenshot_2025-09-19_at_4.35.15_PM.png"),
+      ASSET("Screenshot_2025-09-19_at_4.35.10_PM.png"),
+    ],
+    tag: "Clásico",
+  },
+  {
+    name: "Diseño floral redondo 'Maga'",
+    price: 215000,
+    oldPrice: null,
+    desc:
+      "Diseño floral redondo preservado con hortensia y follaje. Colores personalizables según disponibilidad. No incluye florero.",
+    imgs: [ASSET("Screenshot_2025-09-19_at_4.36.54_PM.png"), ASSET("Screenshot_2025-09-19_at_4.36.45_PM.png")],
+    tag: "Premium",
+  },
+  {
+    name: "Diseño floral 'Paz' mesa de recibidor",
+    price: 276000,
+    oldPrice: null,
+    desc:
+      "Diseño floral con flores preservadas (hortensias y rosas) y follaje. Incluye florero en cerámica blanco.",
+    imgs: [
+      ASSET("Screenshot_2025-09-19_at_4.37.53_PM.png"),
+      ASSET("Screenshot_2025-09-19_at_4.38.01_PM.png"),
+      ASSET("Screenshot_2025-09-19_at_4.38.07_PM.png"),
+      ASSET("Screenshot_2025-09-19_at_4.38.16_PM.png"),
+    ],
+    tag: "Elegancia",
+  },
+  {
+    name: "Base porcelana 'Slim' con flores preservadas",
+    price: 75000,
+    oldPrice: 85000,
+    desc:
+      "Base en porcelana con flores preservadas que duran años y no necesitan agua. 12 colores disponibles. Siguiendo las recomendaciones duran más de 2 años.",
+    imgs: [
+      ASSET("Screenshot_2025-09-19_at_4.39.32_PM.png"),
+      ASSET("Screenshot_2025-09-19_at_4.39.37_PM.png"),
+      ASSET("Screenshot_2025-09-19_at_4.39.42_PM.png"),
+      ASSET("Screenshot_2025-09-19_at_4.39.49_PM.png"),
+    ],
+    tag: "Económico",
+  },
+];
 
 export default function DepacoraLanding() {
-  const productos = [
-    {
-      name: "Gato/Perro en porcelana con flores preservadas",
-      price: 85000,
-      oldPrice: 95000,
-      desc: "Base en porcelana en forma de gato o perro con flores preservadas que duran años. No necesitan agua ni sol. Disponible en 12 colores.",
-      imgs: [dog1, cat1, cat2, cat3],
-      tag: "Oferta"
-    },
-    {
-      name: "Florero 'Venus' con flores preservadas",
-      price: 109000,
-      oldPrice: 115000,
-      desc: "Florero en cerámica 'Venus' con flores preservadas. Disponible en 12 colores. Altura del florero 13 cm.",
-      imgs: [venus1, venus2, venus3, venus4],
-      tag: "Nuevo"
-    },
-    {
-      name: "Florero 'Artemisa' con flores preservadas",
-      price: 119000,
-      oldPrice: 125000,
-      desc: "Florero en cerámica (Sentidos) con flores preservadas que duran años y no necesitan agua. 12 colores disponibles. Altura del florero 16 cm.",
-      imgs: [artemisa1, artemisa2, artemisa3, artemisa4, artemisa5],
-      tag: "Exclusivo"
-    },
-    {
-      name: "Centro de mesa 'Angelita'",
-      price: 98000,
-      oldPrice: null,
-      desc: "Hortensia preservada (20 cm diámetro aprox.) en canasto artesanal con follaje. Colores a elección según disponibilidad.",
-      imgs: [angelita1, angelita2, angelita3, angelita4],
-      tag: "Clásico"
-    },
-    {
-      name: "Diseño floral redondo 'Maga'",
-      price: 215000,
-      oldPrice: null,
-      desc: "Diseño floral redondo preservado con hortensia y follaje. Colores personalizables según disponibilidad. No incluye florero.",
-      imgs: [maga1, maga2],
-      tag: "Premium"
-    },
-    {
-      name: "Diseño floral 'Paz' mesa de recibidor",
-      price: 276000,
-      oldPrice: null,
-      desc: "Diseño floral con flores preservadas (hortensias y rosas) y follaje. Incluye florero en cerámica blanco.",
-      imgs: [paz1, paz2, paz3, paz4],
-      tag: "Elegancia"
-    },
-    {
-      name: "Base porcelana 'Slim' con flores preservadas",
-      price: 75000,
-      oldPrice: 85000,
-      desc: "Base en porcelana con flores preservadas que duran años y no necesitan agua. 12 colores disponibles. Siguiendo las recomendaciones duran más de 2 años.",
-      imgs: [slim1, slim2, slim3, slim4],
-      tag: "Económico"
-    }
-  ];
-
   const [openProduct, setOpenProduct] = useState(null);
   const [checkout, setCheckout] = useState(null);
+
+  useEffect(() => {
+    runSmokeTests(productosData);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-rose-100 text-neutral-900">
@@ -98,7 +136,7 @@ export default function DepacoraLanding() {
       <header className="sticky top-0 z-40 backdrop-blur bg-white/80 border-b">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img src={logo} alt="DEPACORA logo" className="h-10 w-auto" />
+            <img src={LOGO} onError={(e)=>{e.currentTarget.src=FALLBACK_IMG}} alt="DEPACORA logo" className="h-10 w-auto" />
             <div className="leading-tight">
               <div className="font-semibold tracking-wide text-amber-700">DEPACORA</div>
               <div className="text-xs text-neutral-500 -mt-0.5">Con amor, hecho a mano</div>
@@ -172,7 +210,7 @@ export default function DepacoraLanding() {
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-2xl font-semibold text-amber-800">Productos destacados</h2>
           <div className="mt-6 grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {productos.map((p, idx) => (
+            {productosData.map((p, idx) => (
               <ProductCard key={idx} p={p} onOpen={(prod)=>setOpenProduct(prod)} />
             ))}
           </div>
@@ -180,7 +218,11 @@ export default function DepacoraLanding() {
       </section>
 
       {openProduct && (
-        <ProductModal product={openProduct} onClose={()=>setOpenProduct(null)} onCheckout={(p, buyer)=>setCheckout(buildPayuParams(p, buyer))} />
+        <ProductModal
+          product={openProduct}
+          onClose={()=>setOpenProduct(null)}
+          onCheckout={(p, buyer)=>setCheckout(buildPayuParams(p, buyer))}
+        />
       )}
 
       {/* POLÍTICAS Y ENVÍOS */}
@@ -228,8 +270,12 @@ function ProductCard({ p, onOpen }) {
 
   return (
     <article className="group rounded-3xl border overflow-hidden bg-white">
-      <div className="relative aspect-square bg-neutral-100 overflow-hidden cursor-zoom-in" onClick={()=>onOpen(p)} role="button" tabIndex={0} onKeyDown={(e)=>{ if(e.key==='Enter') onOpen(p); }}>
-        <img src={p.imgs?.[i] || p.imgs?.[0]} alt={p.name} className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-[1.02]" />
+      <div
+        className="relative aspect-square bg-neutral-100 overflow-hidden cursor-zoom-in"
+        onClick={()=>onOpen(p)} role="button" tabIndex={0}
+        onKeyDown={(e)=>{ if(e.key==='Enter') onOpen(p); }}
+      >
+        <img src={p.imgs?.[i] || p.imgs?.[0]} onError={(e)=>{e.currentTarget.src=FALLBACK_IMG}} alt={p.name} className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-[1.02]" />
         {total>1 && (
           <>
             <button onClick={prev} aria-label="Anterior" className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/80 hover:bg-white shadow px-2 py-1 text-sm">‹</button>
@@ -288,7 +334,7 @@ function ProductModal({ product, onClose, onCheckout }) {
       <div className="bg-white w-full max-w-4xl rounded-3xl overflow-hidden shadow-xl">
         <div className="flex flex-col md:flex-row">
           <div className="relative w-full md:w-1/2 aspect-square bg-neutral-100">
-            <img src={product.imgs?.[i]} alt={product.name} className="object-cover w-full h-full" />
+            <img src={product.imgs?.[i]} onError={(e)=>{e.currentTarget.src=FALLBACK_IMG}} alt={product.name} className="object-cover w-full h-full" />
             {total>1 && (
               <>
                 <button onClick={prev} className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/80 hover:bg-white shadow px-2 py-1 text-sm">‹</button>
@@ -313,6 +359,7 @@ function ProductModal({ product, onClose, onCheckout }) {
               <span className="ml-2 text-sm text-neutral-500">Unidad</span>
             </div>
 
+            {/* Formulario de compra */}
             <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
               <label className="col-span-1">Cantidad
                 <input type="number" min={1} value={qty} onChange={e=>setQty(e.target.value)} className="mt-1 w-full rounded-xl border px-3 py-2" />
@@ -349,6 +396,8 @@ function ProductModal({ product, onClose, onCheckout }) {
   );
 }
 
+// === PayU Sandbox integration (WebCheckout) ===
+// Nota: en producción la firma debe generarse en el servidor.
 const PAYU_TEST = {
   apiKey: "4Vj8eK4rloUd272L48hsrarnUA",
   merchantId: "508029",
@@ -356,7 +405,7 @@ const PAYU_TEST = {
   currency: "COP",
   action: "https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/",
   responseUrl: typeof window !== 'undefined' ? window.location.href : "https://example.com",
-  confirmationUrl: "https://example.com/confirmation"
+  confirmationUrl: "https://example.com/confirmation",
 };
 
 function buildPayuParams(product, buyer = {}) {
@@ -380,7 +429,7 @@ function buildPayuParams(product, buyer = {}) {
     shippingCity: buyer.city || "",
     extra1: String(qty),
     signature,
-    test: "1"
+    test: "1",
   };
 }
 
@@ -453,3 +502,25 @@ function rhex(n){const s="0123456789abcdef"; let out=""; for(let j=0;j<4;j++){ o
 function hex(x){for(let i=0;i<x.length;i++) x[i]=rhex(x[i]); return x.join("");}
 function md5(s){return hex(md51(s));}
 function add32(a,b){return (a + b) & 0xFFFFFFFF;}
+
+// ===============
+// Smoke tests 🧪
+// ===============
+function runSmokeTests(items){
+  const results = [];
+  const assert = (name, cond) => results.push({ name, ok: !!cond });
+
+  assert("productosData no vacío", Array.isArray(items) && items.length > 0);
+  items.forEach((p, i) => {
+    assert(`Producto #{${i+1}} tiene nombre`, typeof p.name === 'string' && p.name.trim().length > 0);
+    assert(`Producto #{${i+1}} precio válido`, typeof p.price === 'number' && p.price > 0);
+    assert(`Producto #{${i+1}} imgs válidas`, Array.isArray(p.imgs) && p.imgs.length > 0);
+  });
+
+  const fails = results.filter(r=>!r.ok);
+  if (fails.length){
+    console.warn("[DEPACORA] Smoke tests con fallas:", fails);
+  } else {
+    console.log("[DEPACORA] Smoke tests OK ✔");
+  }
+}
